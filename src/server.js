@@ -1,3 +1,4 @@
+const routes = require('./routes')
 const express = require('express')
 const cors = require('cors')
 const AppError = require('./utils/AppError')
@@ -9,6 +10,8 @@ app.use(cors())
 
 // handle json data
 app.use(express.json())
+
+app.use((routes))
 
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
