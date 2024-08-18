@@ -6,6 +6,10 @@ class FoodsRepository {
     return food_id
   }
 
+  async delete(id) {
+    await knex('foods').where({ id }).delete()
+  }
+
   async insertIngredients(ingredients) {
     await knex('ingredients').insert(ingredients)
   }
