@@ -1,0 +1,17 @@
+const FoodsRepository = require('../repositories/FoodsRepository')
+const CreateFoodService = require('../services/FoodServices/CreateFoodService')
+
+class FoodsController {
+  async create(request, response) {
+    const { image, name, category, price, description } = request.body
+
+    const foodsRepository = new FoodsRepository()
+    const createFoodService = new CreateFoodService(foodsRepository)
+
+    createFoodService.execute({ image, name, category, price, description })
+
+    return response.status(201).send()
+  }
+}
+
+module.exports = FoodsController
