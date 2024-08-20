@@ -34,7 +34,7 @@ class FoodsController {
     const foodsRepository = new FoodsRepository()
     const createFoodService = new CreateFoodService(foodsRepository)
 
-    createFoodService.execute({ image, name, category, price, description, ingredients })
+    await createFoodService.execute({ image, name, category, price, description, ingredients })
 
     return response.status(201).send()
   }
