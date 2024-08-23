@@ -3,9 +3,9 @@ const AppError = require('../utils/AppError')
 const authConfig = require('../configs/auth')
 
 function ensureAuthenticated(request, response, next) {
-  const authHeaders = request.authHeaders
+  const authHeaders = request.headers
 
-  if (!authHeaders.cookie) throw new AppError('Roken não informado', 401)
+  if (!authHeaders.cookie) throw new AppError('Token não informado', 401)
   
   const [_, token] = authHeaders.cookie.split('token=')
 
