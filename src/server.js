@@ -1,7 +1,8 @@
+const cors = require('cors')
 const routes = require('./routes')
 const express = require('express')
-const cors = require('cors')
 const AppError = require('./utils/AppError')
+const uploadConfig = require('./configs/upload')
 
 const app = express()
 
@@ -10,6 +11,8 @@ app.use(cors())
 
 // handle json data
 app.use(express.json())
+
+app.use('files', express.static(uploadConfig.UPLOADS_FOLDER))
 
 app.use(routes)
 
