@@ -43,6 +43,10 @@ class FoodsRepository {
   async insertIngredients(ingredients) {
     await knex('ingredients').insert(ingredients)
   }
+
+  async updateImage(id, image) {
+    await knex('foods').update({ image }).where({ id })
+  }
 }
 
 module.exports = FoodsRepository
