@@ -29,7 +29,8 @@ class FoodsController {
   }
 
   async create(request, response) {
-    const { image, name, category, price, description, ingredients } = request.body
+    const { name, category, price, description, ingredients } = request.body
+    const image = request.file?.filename
     const user_id = request.user.id
 
     const foodsRepository = new FoodsRepository()

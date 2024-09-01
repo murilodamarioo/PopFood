@@ -1,4 +1,5 @@
 node_modules
+uploads
 src/database/sqlite
 src/database/database.db
 .env
