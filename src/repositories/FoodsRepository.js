@@ -31,13 +31,13 @@ class FoodsRepository {
     return { food, ingredients }
   }
 
-  async create({ image, name, category, price, description }) {
-    const [food_id] = await knex('foods').insert({ image, name, category, price, description })
+  async create({ user_id, image, name, category, price, description }) {
+    const [food_id] = await knex('foods').insert({ user_id, image, name, category, price, description })
     return food_id
   }
 
   async delete(id) {
-    await knex('foods').where({ id }).delete()
+    await knex('foods').where({ id }).del()
   }
 
   async insertIngredients(ingredients) {

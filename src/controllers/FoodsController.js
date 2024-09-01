@@ -30,11 +30,12 @@ class FoodsController {
 
   async create(request, response) {
     const { image, name, category, price, description, ingredients } = request.body
+    const user_id = request.user.id
 
     const foodsRepository = new FoodsRepository()
     const createFoodService = new CreateFoodService(foodsRepository)
 
-    await createFoodService.execute({ image, name, category, price, description, ingredients })
+    await createFoodService.execute({ user_id, image, name, category, price, description, ingredients })
 
     return response.status(201).send()
   }
@@ -45,7 +46,7 @@ class FoodsController {
     const foodsRepository = new FoodsRepository()
     const deleteFoodService = new DeleteFoodService(foodsRepository)
     
-    await deleteFoodService.execute({ id })
+    await deleteFoodService.execute(id)
 
     return response.status(204).send()
   }
