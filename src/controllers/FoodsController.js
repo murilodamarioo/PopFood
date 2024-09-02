@@ -46,9 +46,13 @@ class FoodsController {
 
     const foodsRepository = new FoodsRepository()
     const deleteFoodService = new DeleteFoodService(foodsRepository)
-    
-    await deleteFoodService.execute(id)
 
+    try {
+      await deleteFoodService.execute(id)
+    } catch (error) {
+      return response.status(400).json({ error: error.message })
+    }
+    
     return response.status(204).send()
   }
 }
