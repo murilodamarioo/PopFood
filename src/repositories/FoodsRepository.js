@@ -2,26 +2,14 @@ const knex = require('../database/knex')
 
 class FoodsRepository {
   async findAll(searchTerm) {
-    let result
+    const queryResult = await knex('foods')
+    .distinct('foods.id', 'foods.name', 'foods.price', 'foods.description', 'foods.image', 'foods.category', 'foods.created_at')
+    .join('ingredients', 'foods.id', 'ingredients.food_id')
+    .where('foods.name', 'like', `%${searchTerm}%`)
+    .orWhere('ingredients.title', 'like', `%${searchTerm}%`)
+    .orderBy('foods.name')
 
-    const researchedIngredients = await knex('ingredients').whereLike('title', `${searchTerm}%`)
-
-    if (researchedIngredients.length > 0) {
-      const researchedFoods = await knex('foods')
-
-      result = researchedFoods.map(food => {
-        const ingredients = researchedIngredients.filter(ingredient => ingredient.food_id === food.id)
-    
-        return {
-          ...food,
-          ingredients: ingredients.map(ingredient => ingredient.title)
-        }
-      })
-    } else {
-      result = await knex('foods').whereLike('name', `${searchTerm}%`)
-    }
-  
-    return result;
+    return queryResult
   }
   
   async findById(id) {
