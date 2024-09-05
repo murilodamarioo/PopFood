@@ -32,6 +32,10 @@ class FoodsRepository {
     await knex('ingredients').insert(ingredients)
   }
 
+  async update({ id, name, category, price, description }) {
+    await knex('foods').update({name, category, price, description, updated_at: knex.fn.now()}).where({ id })
+  }
+
   async updateImage(id, image) {
     await knex('foods').update({ image }).where({ id })
   }
