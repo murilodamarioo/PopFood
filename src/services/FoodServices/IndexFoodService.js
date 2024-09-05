@@ -4,7 +4,15 @@ class IndexFoodService {
   }
 
   async execute(search) {
-    const foodsFounded = await this.foodsRepository.findAll(search)
+
+    let foodsFounded
+
+    if (search) {
+      foodsFounded = await this.foodsRepository.findBySearch(search)
+    } else {
+      foodsFounded = await this.foodsRepository.findAll()
+    }
+
     return foodsFounded
   }
 }

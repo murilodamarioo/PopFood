@@ -1,7 +1,12 @@
 const knex = require('../database/knex')
 
 class FoodsRepository {
-  async findAll(searchTerm) {
+  async findAll() {
+    const queryResult = await knex('foods')
+    return queryResult
+  }
+
+  async findBySearch(searchTerm) {
     const queryResult = await knex('foods')
     .distinct('foods.id', 'foods.name', 'foods.price', 'foods.description', 'foods.image', 'foods.category', 'foods.created_at')
     .join('ingredients', 'foods.id', 'ingredients.food_id')
