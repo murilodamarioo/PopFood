@@ -1,3 +1,5 @@
+const AppError = require('../../utils/AppError')
+
 class DeleteFoodService {
   constructor(foodsRepository) {
     this.foodsRepository = foodsRepository
@@ -7,7 +9,7 @@ class DeleteFoodService {
     const { food: foodExists } = await this.foodsRepository.findById(id)
 
     if (!foodExists) {
-      throw new Error('Impossível de excluir! Prato inexistente!', 400)
+      throw new AppError('Impossível de excluir! Prato inexistente!', 404)
     }
 
     await this.foodsRepository.delete(id)

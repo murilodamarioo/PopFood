@@ -21,10 +21,7 @@ class SessionsController {
   
       response.status(201).json({ user })
     } catch (error) {
-      return response.status(401).json({ 
-        error: error.message, 
-        statusCode: error.statusCode 
-      })
+      return response.status(error.statusCode).json({ error: error.message })
     }
   }
 }

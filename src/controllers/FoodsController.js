@@ -67,7 +67,7 @@ class FoodsController {
     try {
       await deleteFoodService.execute(id)
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(error.statusCode).json({ error: error.message })
     }
     
     return response.status(204).send()
