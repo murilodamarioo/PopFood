@@ -56,7 +56,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Usário criado com sucesso."
+                      "example": "Usuário criado com sucesso."
                     }
                   }
                 }
@@ -158,7 +158,7 @@
     },
     "/foods": {
       "get": {
-        "sumary": "Retorna todos os pratos",
+        "summary": "Retorna todos os pratos",
         "responses": {
           "200": {
             "description": "OK",
@@ -180,6 +180,60 @@
                       "updated_at": { "type": "string", "example": "2024-09-02 01:44:03" }
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cria um novo prato",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": { "type": "file",  "example": "salmao.jpg" },
+                  "name": { "type": "string", "example": "Salmão grelhado do Chef" },
+                  "price": { "type": "integer", "example": 45 },
+                  "category": { "type": "string", "example": "Peixe"  },
+                  "description": { "type": "string", "example": "Salmão feito na grelha pelo Chef" },
+                  "ingredients": { "type": "array", "example": ["Salmao", "Cebola", "temperos da casa"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description":"Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Todos os campos devem ser preenchidos."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Imagem do prato obrigatória"
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             }

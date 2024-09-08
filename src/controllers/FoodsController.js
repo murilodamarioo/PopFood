@@ -37,7 +37,11 @@ class FoodsController {
     const foodsRepository = new FoodsRepository()
     const createFoodService = new CreateFoodService(foodsRepository)
 
-    await createFoodService.execute({ user_id, image, name, category, price, description, ingredients })
+    try {
+      await createFoodService.execute({ user_id, image, name, category, price, description, ingredients })
+    } catch(error) {
+      return response.status(error.statusCode).json({ error: error.message })
+    }
 
     return response.status(201).send()
   }
