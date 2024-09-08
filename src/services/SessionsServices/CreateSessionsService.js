@@ -13,15 +13,13 @@ class CreateSessionsService {
   async execute({ email, password }) {
     const user = await this.usersRepository.findByEmail(email)
 
-    if (!user) {
-      throw new AppError('Email ou senha inválidos', 401)
-    }
+    if(!email || !password) throw new AppError('Todos os campos devem ser preenchidos.', 400)
+
+    if (!user) throw new AppError('Email ou senha inválidos', 401)
 
     const passwordMatched = await compare(password, user.password)
 
-    if (!passwordMatched) {
-      throw new AppError('Email ou senha inválidos', 401)
-    }
+    if (!passwordMatched) throw new AppError('Email ou senha inválidos', 401)
     
     const { secret, expiresIn } = authConfig.jwt
 
