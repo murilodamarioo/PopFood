@@ -12,7 +12,7 @@ class UsersController {
     try {
       await createUserService.execute({ name, email, password })
     } catch (error) {
-      return response.status(error.statusCode).json({ error: error.message })
+      return response.status(error.statusCode).json({ message: error.message })
     }
     return response.status(201).json()
   }

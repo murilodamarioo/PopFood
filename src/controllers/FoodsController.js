@@ -24,9 +24,13 @@ class FoodsController {
     const foodsRepository = new FoodsRepository()
     const showFoodService = new ShowFoodService(foodsRepository)
 
-    const { food, ingredients } = await showFoodService.execute(id)
+    try {
+      const { food, ingredients } = await showFoodService.execute(id)
 
-    return response.json({ ...food, ingredients })
+      return response.json({ ...food, ingredients })
+    } catch(error) {
+      return response.status(error.statusCode).json({ message: error.message })
+    }
   }
 
   async create(request, response) {
@@ -40,7 +44,7 @@ class FoodsController {
     try {
       await createFoodService.execute({ user_id, image, name, category, price, description, ingredients })
     } catch(error) {
-      return response.status(error.statusCode).json({ error: error.message })
+      return response.status(error.statusCode).json({ message: error.message })
     }
 
     return response.status(201).send()
@@ -56,7 +60,7 @@ class FoodsController {
     try {
       await updateFoodService.execute({ id, name, category, price, description })
     } catch(error) {
-      return response.status(error.statusCode).json({ error: error.message })
+      return response.status(error.statusCode).json({ message: error.message })
     }
 
     return response.status(200).json()
@@ -71,7 +75,7 @@ class FoodsController {
     try {
       await deleteFoodService.execute(id)
     } catch (error) {
-      return response.status(error.statusCode).json({ error: error.message })
+      return response.status(error.statusCode).json({ message: error.message })
     }
     
     return response.status(204).send()
