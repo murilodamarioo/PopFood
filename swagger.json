@@ -149,6 +149,16 @@
     "/foods": {
       "get": {
         "summary": "Retorna todos os pratos",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
