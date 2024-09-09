@@ -2,8 +2,9 @@ const DiskStorage = require("../../providers/DiskStorage")
 const AppError = require("../../utils/AppError")
 
 class CreateFoodService {
-  constructor(foodsRepository) {
+  constructor(foodsRepository, ingredientsRepository) {
     this.foodsRepository = foodsRepository
+    this.ingredientsRepository = ingredientsRepository
   }
 
   async execute({ user_id, image, name, category, price, description, ingredients }) {
@@ -35,7 +36,7 @@ class CreateFoodService {
         title: ingredient
       }
     })
-    await this.foodsRepository.insertIngredients(ingredientsToInsert)
+    await this.ingredientsRepository.insert(ingredientsToInsert)
   }
 }
 

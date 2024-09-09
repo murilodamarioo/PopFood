@@ -21,7 +21,10 @@ class FoodsRepository {
     const food = await knex('foods').where({id}).first()
     const ingredientsInfo = await knex('ingredients').where({food_id: id}).orderBy('title')
     
-    const ingredients = ingredientsInfo.map(info => info.title)
+    const ingredients = ingredientsInfo.map(info => ({
+      id: info.id, 
+      title: info.title
+    }))
 
     return { food, ingredients }
   }

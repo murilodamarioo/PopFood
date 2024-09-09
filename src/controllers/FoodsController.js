@@ -5,6 +5,7 @@ const DeleteFoodService = require('../services/FoodServices/DeleteFoodService')
 const ShowFoodService = require('../services/FoodServices/ShowFoodService')
 const IndexFoodService = require('../services/FoodServices/IndexFoodService')
 const UpdateFoodService = require('../services/FoodServices/UpdateFoodService')
+const IngredientsRepository = require('../repositories/ingredientsRepository')
 
 class FoodsController {
   async index(request, response) {
@@ -39,7 +40,8 @@ class FoodsController {
     const user_id = request.user.id
 
     const foodsRepository = new FoodsRepository()
-    const createFoodService = new CreateFoodService(foodsRepository)
+    const ingredientsRepository = new IngredientsRepository()
+    const createFoodService = new CreateFoodService(foodsRepository, ingredientsRepository)
 
     try {
       await createFoodService.execute({ user_id, image, name, category, price, description, ingredients })
@@ -63,7 +65,7 @@ class FoodsController {
       return response.status(error.statusCode).json({ message: error.message })
     }
 
-    return response.status(200).json()
+    return response.status(200).json({ message: 'Prato atualizado com sucesso!' })
   }
 
   async delete(request, response) {
