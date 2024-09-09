@@ -11,8 +11,6 @@ class CreateFoodService {
       throw new AppError('Imagem do prato obrigatória', 400)
     }
 
-    console.log(typeof ingredients)
-
     let newIngredients
 
     if (typeof ingredients === 'string') {
@@ -20,9 +18,6 @@ class CreateFoodService {
     } else {
       newIngredients = ingredients
     }
-
-
-    console.log(newIngredients)
 
     const diskStorage = new DiskStorage()
     const filename = await diskStorage.saveFile(image)
