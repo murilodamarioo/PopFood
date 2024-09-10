@@ -1,4 +1,5 @@
 const DiskStorage = require('../../providers/DiskStorage')
+const AppError = require('../../utils/AppError')
 
 class UpdateFoodImageService {
   constructor(foodsRepository) {
@@ -7,6 +8,10 @@ class UpdateFoodImageService {
 
   async execute({ id, imageFilename }) {
     const diskStorage = new DiskStorage()
+
+    if (!imageFilename) {
+      throw new AppError('Imagem do prato obrigatória')
+    }
 
     const food = await this.foodsRepository.findById(id)
 

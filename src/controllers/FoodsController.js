@@ -54,13 +54,14 @@ class FoodsController {
 
   async update(request, response) {
     const { id } = request.params
-    const { name, category, price, description } = request.body
+    const { name, category, price, description, ingredients } = request.body
 
     const foodsRepository = new FoodsRepository()
-    const updateFoodService = new UpdateFoodService(foodsRepository)
+    const ingredientsRepository = new IngredientsRepository()
+    const updateFoodService = new UpdateFoodService(foodsRepository, ingredientsRepository)
 
     try {
-      await updateFoodService.execute({ id, name, category, price, description })
+      await updateFoodService.execute({ id, name, category, price, description, ingredients })
     } catch(error) {
       return response.status(error.statusCode).json({ message: error.message })
     }
