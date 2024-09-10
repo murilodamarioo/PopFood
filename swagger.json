@@ -244,11 +244,11 @@
           {
             "name": "id",
             "in": "path",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer"
-            },
-            "example": 45
+              "type": "integer",
+              "example": 45
+            }
           }
         ],
         "responses": {
@@ -288,6 +288,109 @@
                   "type": "object",
                   "properties": {
                     "message": { "type": "string", "example": "Prato não encontrado" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualiza um prato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 45
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Prato especial da casa" },
+                  "category": { "type": "string", "example": "Prato especial da casa" },
+                  "price": { "type": "integer", "example": 60 },
+                  "description": { "type": "string", "example": "Desscrição padrão de prato" },
+                  "ingredients": { "type": "array", "example": ["Temperos", "Cebola", "Iguarias"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Prato atualizado com sucesso" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Impossível de atualizar! Prato inexistente!" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Todos os campos devem ser preenchidos." }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Exclui um prato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 50
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Impossível de excluir! Prato inexistente!" }
                   }
                 }
               }
